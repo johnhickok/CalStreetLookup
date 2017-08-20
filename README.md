@@ -1,4 +1,14 @@
 # CalStreetLookup
+
+pre {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0;
+    background: #d9d9d9;
+} 
+</style>
+
 These tools extract a list of street names in California, spatially joined to ZIP Codes. This is to be a rewrite from earlier projects, but with better documentation.
 
 If you need some training using PostGIS, take this <a href="http://workshops.boundlessgeo.com/postgis-intro/">online workshop</a>, provided by Boundless.
@@ -11,6 +21,18 @@ Some steps to take are listed below. The following steps are listed to teach you
 
 Use ArcGIS, QGIS, or any other desktop GIS software to create a statewide shapefile of your ZIP Codes
 Create another shapefile with just a few selected streets from OSM.
+
+<pre>
+CREATE TABLE public.roads
+(
+  gid SERIAL PRIMARY KEY,
+  name character varying(150),
+  geom geometry(LineString,4326)
+)
+;
+</pre>
+
+
 For your selected roads shapefile, remove all fields but the street name.
 Use PGAdmin to create the database for your joins.
 Use PGshapeloader to load the above shapefiles into your database.
