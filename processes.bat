@@ -1,5 +1,6 @@
 :: This file spatially joins statewide OpenStreetMap (OSM) roads to Esri ZIP Code data.
 :: This example assumes your database name is calstreets. Edit to suit your needs.
+:: John Hickok, 2016-01-02
 
 :: Convert OpenStreetMap roads shapefile to CSV with WKT values for geometry
 C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt.csv gis.osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
