@@ -41,7 +41,7 @@ CREATE TABLE public.roads
 </pre>
 
 <ul>
-  <li>The rest of the steps are remarked in the file <i>processes.bat</i></li>
+  <li>The rest of the steps are remarked in the file <i>processes.bat</i>.</li>
 </ul>  
 
 John Hickok, 2017-06-30
