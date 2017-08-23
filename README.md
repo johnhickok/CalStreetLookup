@@ -25,7 +25,7 @@ CREATE TABLE public.roads
 </pre>
 
 <ul>
-  <li>To access your postgress database from the command line without a password prompt, edit the pgpass.conf file in your Windows Users directory. More information about this file is in the <a href="https://www.postgresql.org/docs/current/static/libpq-pgpass.html">postgres documentation.</a></li>
+  <li>To access your postgress database from the command line without a password prompt, edit the pgpass.conf file in your Windows Users directory. (See formatting below.) More information about this file is in the <a href="https://www.postgresql.org/docs/current/static/libpq-pgpass.html">postgres documentation.</a></li>
 </ul>
 
 <pre>
