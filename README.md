@@ -1,14 +1,5 @@
 # CalStreetLookup
 
-pre {
-    display: block;
-    font-family: monospace;
-    white-space: pre;
-    margin: 1em 0;
-    background: #d9d9d9;
-} 
-</style>
-
 These tools extract a list of street names in California, spatially joined to ZIP Codes. This is to be a rewrite from earlier projects, but with better documentation.
 
 If you need some training using PostGIS, take this <a href="http://workshops.boundlessgeo.com/postgis-intro/">online workshop</a>, provided by Boundless.
