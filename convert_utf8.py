@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# jhickok 2016-04-01
 
 # convert_utf8.py inputs roads_wkt.csv and outputs roads_wkt_utf8.sql. This process
 # 1. Extracts only records that have non null street name values
