@@ -1,3 +1,6 @@
+--SQL used by postGIS to spatially join OpenStreeMap roads to Esri ZIP Code polygons
+--jhickok 2016-04-01
+
 SELECT 
 roads.name AS st_name,
 zip_codes.name AS community,
