@@ -19,7 +19,7 @@ CREATE EXTENSION postgis
 </pre>
 
 <ul>
-  <li>Use the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load this shapefile into your database.</li>
+  <li>Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load this shapefile into your database.</li>
   <li>Create a new table for roads:</li>
 </ul>
 
