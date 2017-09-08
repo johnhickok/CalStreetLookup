@@ -15,7 +15,7 @@ Some steps to take are listed below.
 </ul>
 
 <pre>
-CREATE EXTENSION postgis
+CREATE EXTENSION postgis;
 </pre>
 
 <ul>
