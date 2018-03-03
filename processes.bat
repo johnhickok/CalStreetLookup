@@ -3,7 +3,6 @@
 :: http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24
 :: sample code: ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES
 
-
 :: Extract gis.osm_roads_free_1.shp from california-latest-free.shp.zip; 
 :: rename to osm_roads_free_1.shp
 python extract_roads.py
@@ -29,3 +28,4 @@ psql -h localhost -p 5432 -U postgres -d calstreets -q -o streetz.csv -A -t -f s
 :: Create sqlite database streetz.db
 python make_sqlite_db.py
 
+:: Double-click streetzip.py and follow the prompts to get a list of streets.
