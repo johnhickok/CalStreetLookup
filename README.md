@@ -4,8 +4,8 @@ These tools extract a list of street names in California, spatially joined to ZI
 
 You will need some data:
 <ul>
-  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>.</li>
-  <li>USA ZIP Codes data is available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
+  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/" target="_blank">geofabrik</a>.</li>
+  <li>USA ZIP Codes data is available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24" target="_blank">download here</a>).</li>
 </ul>
 
 Some steps to take are listed below.
