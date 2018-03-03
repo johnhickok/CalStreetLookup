@@ -34,7 +34,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 </pre>
 
 <ul>
-  <li>The rest of the steps are remarked in the file <i>processes.bat</i>.</li>
+  <li>The rest of the steps are remarked in the file <b>processes.bat</b>.</li>
 </ul>  
 
 John Hickok, 2018-02-05
