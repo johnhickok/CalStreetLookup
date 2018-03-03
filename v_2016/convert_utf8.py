@@ -6,9 +6,9 @@
 # 1. Extracts only records that have non null street name values
 # 2. Of the above, only the WKT and name fields are extracted (see https://pypi.python.org/pypi/Unidecode)
 # 3. Transliterates special characters with UTF-8 characters
-# 4. Removes other characters unneeded and incompatible with sqlite
+# 4. Removes other characters unneded and incompatible with sqlite
 
-import csv, os, zipfile, subprocess
+import csv
 from unidecode import unidecode
 
 # set up your unidecode function
@@ -16,9 +16,9 @@ def remove_non_ascii(text):
     return unidecode(unicode(text, encoding = "utf-8"))
 
 infile_csv = open('roads_wkt.csv', 'r')
-outfile_csv = open('osm_roads_ca.csv', 'w')
+outfile_csv = open('roads_wkt_utf8.sql', 'w')
 
-outfile_csv.write('WKT,STNAME\n')
+#outfile_csv.write('WKT,name\n')
 
 with open('roads_wkt.csv', 'rb') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
@@ -41,7 +41,7 @@ with open('roads_wkt.csv', 'rb') as csvfile:
             name = name.replace('\r','r')
             name = name.replace('\t','t')
             name = name.replace('\v','v')
-            new_row = '"' + row['WKT'] + '",' + name + '\n'
+            new_row = "INSERT INTO roads(name, geom) VALUES ('" + name + "',ST_GeomFromText('" + row['WKT'] + "',4326));\n"
             outfile_csv.write(new_row)
 
 infile_csv.close()

@@ -1,44 +1,31 @@
-:: This file spatially joins statewide OpenStreetMap (OSM) roads to Esri ZIP Code data.
-:: This example assumes your database name is calstreets. Edit to suit your needs.
-:: John Hickok, 2016-01-02
+:: processes.bat extracts openstreetmap replaces PostGIS table osm_roads_ca in database calstreets
+:: It is assumed database calstreets already has nationwide zipdodes from Esri
+:: http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24
+:: sample code: ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES
 
-:: Convert OpenStreetMap roads shapefile to CSV with WKT values for geometry
-C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt.csv gis.osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
-echo converted shp to csv >> log1.txt
-echo %time% >> log1.txt
 
-:: Python 2.x script removes non UTF8 characters and streets without names, creates
-:: roads_wkt_utf8.sql, later used to reload your new data.
+:: Extract gis.osm_roads_free_1.shp from california-latest-free.shp.zip; 
+:: rename to osm_roads_free_1.shp
+python extract_roads.py
+
+:: Make this cmd shell run OSGeo4W commands
+call C:\OSGeo4W64\bin\o4w_env.bat
+
+:: Convert osm_roads_free_1.shp to roads_wkt.csv
+call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt.csv osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
+
+:: Remove non-utf8 chars from roads_wkt.csv; output osm_roads_ca.csv
 python convert_utf8.py
-echo cleaned up csv >> log1.txt
-echo %time% >> log1.txt
 
-:: Removes old values from postgres roads table.
-psql -h localhost -p 5432 -U postgres -d calstreets -q -c "TRUNCATE TABLE roads;"
-echo truncated table >> log1.txt
-echo %time% >> log1.txt
+:: Replace PostGIS table osm_roads_ca with osm_roads_ca.csv
+call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_ca.csv -overwrite --config PG_USE_COPY YES
 
-:: Drop your spatial index.
-psql -h localhost -p 5432 -U postgres -d calstreets -q -c "DROP INDEX roads_geom_idx;"
-echo dropped spatial index >> log1.txt
-echo %time% >> log1.txt
+:: Vacuum analyize osm_roads_ca
+psql -h localhost -p 5432 -U postgres -d calstreets -q -c "VACUUM ANALYZE osm_roads_ca;"
 
-:: Loads you new data into your roads table. This step takes a while.
-psql -h localhost -p 5432 -U postgres -d calstreets -q -f roads_wkt_utf8.sql
-echo loaded data >> log1.txt
-echo %time% >> log1.txt
-
-:: This step is important for cleaning your postgres database.
-psql -h localhost -p 5432 -U postgres -d calstreets -q -c "VACUUM ANALYZE roads;"
-echo vacuumed roads >> log1.txt
-echo %time% >> log1.txt
-
-:: Re creates your roads spatial index.
-psql -h localhost -p 5432 -U postgres -d calstreets -q -c "CREATE INDEX roads_geom_idx ON roads USING gist(geom);"
-echo created spatial index >> log1.txt
-echo %time% >> log1.txt
-
-:: This step spatially joins roads and ZIP Codes, then exports summary streetz.csv
+:: Spatially join roads and ZIP Codes, then export streetz.csv
 psql -h localhost -p 5432 -U postgres -d calstreets -q -o streetz.csv -A -t -f street_zip_summary.sql
-echo extracted csv >> log1.txt
-echo %time% >> log1.txt
+
+:: Create sqlite database streetz.db
+python make_sqlite_db.py
+
