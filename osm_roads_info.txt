@@ -1,0 +1,25 @@
+INFO: Open of `osm_roads_free_1.shp'
+      using driver `ESRI Shapefile' successful.
+
+Layer name: osm_roads_free_1
+Geometry: Line String
+Feature Count: 1893018
+Extent: (-124.406428, 32.524994) - (-114.129358, 42.193837)
+Layer SRS WKT:
+GEOGCS["GCS_WGS_1984",
+    DATUM["WGS_1984",
+        SPHEROID["WGS_84",6378137,298.257223563]],
+    PRIMEM["Greenwich",0],
+    UNIT["Degree",0.017453292519943295],
+    AUTHORITY["EPSG","4326"]]
+Geometry Column = _ogr_geometry_
+osm_id: String (10.0)
+code: Integer (4.0)
+fclass: String (28.0)
+name: String (100.0)
+ref: String (20.0)
+oneway: String (1.0)
+maxspeed: Integer (3.0)
+layer: Integer64 (12.0)
+bridge: String (1.0)
+tunnel: String (1.0)
