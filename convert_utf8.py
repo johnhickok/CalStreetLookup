@@ -11,9 +11,20 @@
 import csv, os, zipfile, subprocess
 from unidecode import unidecode
 
-# set up your unidecode function
+# function for replacing or removing non-UTF8 characters
+# (GDAL scripts need this.)
 def remove_non_ascii(text):
-    return unidecode(unicode(text, encoding = "utf-8"))
+  try:
+    finalval = unidecode(unicode(text, encoding = "utf-8"))
+  except UnicodeDecodeError:
+    finalval = ''
+    for i in text:
+      try:
+        i.decode('utf-8')
+        finalval += i
+      except UnicodeError:
+        print ('Found a non-decodable character')
+  return finalval
 
 infile_csv = open('roads_wkt.csv', 'r')
 outfile_csv = open('osm_roads_ca.csv', 'w')
