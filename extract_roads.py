@@ -10,11 +10,11 @@ thisfolder = os.getcwd()
 
 # Extracts only the roads shapefile
 geofabrik = zipfile.ZipFile("california-latest-free.shp.zip")
-geofabrik.extract("gis.osm_roads_free_1.cpg")
-geofabrik.extract("gis.osm_roads_free_1.dbf")
-geofabrik.extract("gis.osm_roads_free_1.prj")
-geofabrik.extract("gis.osm_roads_free_1.shp")
-geofabrik.extract("gis.osm_roads_free_1.shx")
+geofabrik.extract("gis_osm_roads_free_1.cpg")
+geofabrik.extract("gis_osm_roads_free_1.dbf")
+geofabrik.extract("gis_osm_roads_free_1.prj")
+geofabrik.extract("gis_osm_roads_free_1.shp")
+geofabrik.extract("gis_osm_roads_free_1.shx")
 
 geofabrik.close()
 
