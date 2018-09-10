@@ -19,8 +19,8 @@ geofabrik.extract("gis_osm_roads_free_1.shx")
 geofabrik.close()
 
 # rename the shapefile to prep for geoprocessing
-os.rename('gis.osm_roads_free_1.cpg', 'osm_roads_free_1.cpg')
-os.rename('gis.osm_roads_free_1.dbf', 'osm_roads_free_1.dbf')
-os.rename('gis.osm_roads_free_1.prj', 'osm_roads_free_1.prj')
-os.rename('gis.osm_roads_free_1.shp', 'osm_roads_free_1.shp')
-os.rename('gis.osm_roads_free_1.shx', 'osm_roads_free_1.shx')
+os.rename('gis_osm_roads_free_1.cpg', 'osm_roads_free_1.cpg')
+os.rename('gis_osm_roads_free_1.dbf', 'osm_roads_free_1.dbf')
+os.rename('gis_osm_roads_free_1.prj', 'osm_roads_free_1.prj')
+os.rename('gis_osm_roads_free_1.shp', 'osm_roads_free_1.shp')
+os.rename('gis_osm_roads_free_1.shx', 'osm_roads_free_1.shx')
