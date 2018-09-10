@@ -17,7 +17,7 @@ call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt.csv osm_roads_free_1.shp -lco GEO
 python convert_utf8.py
 
 :: Replace PostGIS table osm_roads_ca with osm_roads_ca.csv
-call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_ca.csv -overwrite --config PG_USE_COPY YES
+call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_ca.csv -overwrite --config PG_USE_COPY YES -sql "SELECT osm_id,code,fclass,name,ref,oneway,maxspeed,layer,bridge,tunnel FROM osm_roads_ca"
 
 :: Vacuum analyize osm_roads_ca
 psql -h localhost -p 5432 -U postgres -d calstreets -q -c "VACUUM ANALYZE osm_roads_ca;"
