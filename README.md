@@ -14,7 +14,7 @@ You will need some data:
 
 Some steps to take are listed below.
 <ul>
-    <li>Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>. Examples used in processes.bat use a database named <b>calstreets</b>.</li>
+    <li>Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>. Examples used herein use a database named <b>calstreets</b>.</li>
 </ul>
 
 <pre>
