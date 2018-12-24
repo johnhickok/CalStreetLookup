@@ -1,16 +1,20 @@
 # CalStreetLookup
 
-These tools extract a list of street names in California, spatially joined to ZIP Codes. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro" target="_blank">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer <a href="https://learn.boundlessgeo.com/series/postgis" target="_blank">courses for a fee</a>.
+A chief cause of geocoding errors is mispelled street names. This is especially true if your addresses are acquired over a phone. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities. The repository includes scripts for creating and accessing a SQLite database for looking up street spellings by ZIP Code, city, or parts of street names.
+
+These tools create a list of street names in California with their corresponding ZIP Codes and postal cities, and they could be used as an introduction to the power of spatial joins via spatial SQL. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>.
+
+Note: Neither the OpenStreetMap (OSM) or Esri ZIP Code polygons should used for geocoding.
 
 You will need some data:
 <ul>
-  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/ target="_blank"">geofabrik</a>. Note our example uses California, which Geofabrik split into north and south.</li>
-  <li>USA ZIP Codes data is available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24" target="_blank">download here</a>).</li>
+  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California, which Geofabrik split into north and south.</li>
+  <li>USA ZIP Codes data is available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
 </ul>
 
 Some steps to take are listed below.
 <ul>
-    <li>Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html" target="_blank">provides a few tips</a>. Examples used in processes.bat use a database named <b>calstreets</b>.</li>
+    <li>Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>. Examples used in processes.bat use a database named <b>calstreets</b>.</li>
 </ul>
 
 <pre>
@@ -18,7 +22,7 @@ CREATE EXTENSION postgis;
 </pre>
 
 <ul>
-  <li>Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html" target="_blank">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html" target="_blank">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr:</li>
+  <li>Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr:</li>
  </ul>
 
 <pre>
@@ -37,7 +41,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 More details are remarked in the Windows batch files:
 <ul>
   <li><b>process_1.bat</b> extracts CSVs from norcal and socal shapefiles.</li>
-  <li><b>process_2.bat</b> uses Python and the <a href="http://initd.org/psycopg/docs/index.html" target="_blank">psycopg2</a> library to geoprocess your data in PostGIS.</li>
+  <li><b>process_2.bat</b> uses Python and the <a href="http://initd.org/psycopg/docs/index.html">psycopg2</a> library to geoprocess your data in PostGIS.</li>
 </ul>  
 
 John Hickok, 2018-12-26
