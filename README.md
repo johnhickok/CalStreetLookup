@@ -1,8 +1,8 @@
 # CalStreetLookup
 
-A chief cause of geocoding errors is mispelled street names. This is especially true if your addresses are acquired over a phone. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities. The repository includes scripts for creating and accessing a SQLite database for looking up street spellings by ZIP Code, city, or parts of street names.
+A chief cause of geocoding errors is mispelled street names. This is especially true if your addresses are acquired over a phone. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities. The repository also includes scripts for creating and accessing a SQLite database for looking up street spellings by ZIP Code, city, or parts of street names.
 
-These tools create a list of street names in California with their corresponding ZIP Codes and postal cities, and they could be used as an introduction to the power of spatial joins via spatial SQL. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>.
+These scripts could be used as an exercize in using spatial SQL for geoprocessing. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>.
 
 Note: Neither the OpenStreetMap (OSM) or Esri ZIP Code polygons should used for geocoding.
 
