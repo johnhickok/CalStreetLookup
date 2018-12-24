@@ -1,6 +1,6 @@
 # CalStreetLookup
 
-These tools extract a list of street names in California, spatially joined to ZIP Codes. If you need some training using PostGIS, take this <a href="http://workshops.boundlessgeo.com/postgis-intro/">online workshop</a>, provided by Boundless.
+These tools extract a list of street names in California, spatially joined to ZIP Codes. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro/" target="_blank">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer <a href=https://learn.boundlessgeo.com/series/postgis" target="_blank">courses</a> for a fee.
 
 You will need some data:
 <ul>
