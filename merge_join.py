@@ -1,14 +1,14 @@
+# merge_join is a Python script that runs geoprocessing tasks in PostGS
+
 import psycopg2
-import datetime
+import time
 
 connection = psycopg2.connect("dbname=calstreets user=postgres password=postgres")  
 cursor = connection.cursor()
 
-
 # Begin running script after importing libraries
-print('\nBegin running script...')
-print('\nMerge northern and southern California tables together.')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Begin running merge_join.py')
+print(time.strftime('%X') + ' Merge Northern and Southern California tables together')
 
 # Merge Northern and Southern California tables together
 psql_merge_ca = (
@@ -23,8 +23,7 @@ UNION
 cursor.execute(psql_merge_ca)
 cursor.execute("commit")
 
-print('\nCreate table osm_ca with unique osm values')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Create table osm_ca with unique osm_id values')
 
 # Creates table osm_ca with unique records based on the OpenStreetMap ID
 psql_ca_unique = (
@@ -48,8 +47,7 @@ FROM OSM_CA_STAGING
 cursor.execute(psql_ca_unique)
 cursor.execute("commit")
 
-print('\nCleanup')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Cleanup')
 
 # Drops interim tables, plus some Postgres cleanup
 pgsql_drop = ("DROP TABLE OSM_ROADS_NORCAL, OSM_ROADS_SOCAL, OSM_CA_STAGING")
@@ -58,8 +56,7 @@ cursor.execute("commit")
 cursor.execute("VACUUM ANALYZE")
 
 
-print('\nCreate spatial index')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Create spatial index for California streets table')
 
 # Create spatial index
 psql_spatial_index = (
@@ -72,8 +69,7 @@ cursor.execute(psql_spatial_index)
 cursor.execute("commit")
 
 
-print('\nCreate Spatially join ZIP Code polygons with OSM streets')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Spatially join ZIP Code polygons with OSM streets')
 
 # Spatially join ZIP Code polygons with OSM streets
 psql_extract_ca = (
@@ -92,8 +88,7 @@ ORDER BY roads.name
 )
 
 
-print('\nOutput file streetz.csv')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Output file streetz.csv')
 
 # Set up output file streetz.csv
 output_csv = open('streetz.csv', 'w')
@@ -103,8 +98,7 @@ row = cursor.fetchall()
 for i in row:
   output_csv.write(i[0] + '|' + i[1] + '|' + str(i[2]) + '|' + str(i[3]) + '\n')
 
-print('\nFinish script')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Finish merge_join.py')
 
 output_csv.close()
 

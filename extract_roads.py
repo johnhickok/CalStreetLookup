@@ -1,26 +1,41 @@
-# This Python 2.x script assumes 
-# - you downloaded california-latest-free.shp.zip # from Geofabrik.
-# (http://download.geofabrik.de/north-america/us/california-latest-free.shp.zip)
-# - You used the OSGEO4W installation of QGIS
+# This Python 2.x script extracts road shapefiles from northern and southern 
+# California Open Street Map files downloaded from Geofabrik
 
 import os, zipfile, subprocess
 
 #Set the current working folder
 thisfolder = os.getcwd()
 
-# Extracts only the roads shapefile
-geofabrik = zipfile.ZipFile("california-latest-free.shp.zip")
-geofabrik.extract("gis_osm_roads_free_1.cpg")
-geofabrik.extract("gis_osm_roads_free_1.dbf")
-geofabrik.extract("gis_osm_roads_free_1.prj")
-geofabrik.extract("gis_osm_roads_free_1.shp")
-geofabrik.extract("gis_osm_roads_free_1.shx")
+# Extract roads shapefile from norcal
+open_zip = zipfile.ZipFile("norcal-latest-free.shp.zip")
 
-geofabrik.close()
+file_list = zipfile.ZipFile.namelist(open_zip)
 
-# rename the shapefile to prep for geoprocessing
-os.rename('gis_osm_roads_free_1.cpg', 'osm_roads_free_1.cpg')
-os.rename('gis_osm_roads_free_1.dbf', 'osm_roads_free_1.dbf')
-os.rename('gis_osm_roads_free_1.prj', 'osm_roads_free_1.prj')
-os.rename('gis_osm_roads_free_1.shp', 'osm_roads_free_1.shp')
-os.rename('gis_osm_roads_free_1.shx', 'osm_roads_free_1.shx')
+road_list = []
+
+# select the items in the archive including 'roads' in the name
+for i in file_list:
+  if 'roads' in i:
+    road_list.append(i)
+
+for j in road_list:
+  open_zip.extract(j)
+  os.rename(j, 'norcal_' + j)
+
+
+# Extract roads shapefile from socal
+open_zip = zipfile.ZipFile("socal-latest-free.shp.zip")
+
+# get a list of all the files in the archive
+file_list = zipfile.ZipFile.namelist(open_zip)
+
+road_list = []
+
+# select the items including 'roads' in the name
+for i in file_list:
+  if 'roads' in i:
+    road_list.append(i)
+
+for j in road_list:
+  open_zip.extract(j)
+  os.rename(j, 'socal_' + j)

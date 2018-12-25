@@ -17,10 +17,9 @@
 
 import csv, os, zipfile, subprocess
 from unidecode import unidecode
-import datetime
+import time
 
-print('\nBegin script')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' Begin running convert_utf8.py')
 
 # function for replacing or removing non-UTF8 characters
 # (GDAL scripts need this.)
@@ -115,6 +114,5 @@ with open('roads_wkt_socal.csv', 'rb') as csvfile:
 
 outfile_csv.close()
 
-print('\nEnd Script')
-print(datetime.datetime.now())
+print(time.strftime('%X') + ' End running convert_utf8.py')
 
