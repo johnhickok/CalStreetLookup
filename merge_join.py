@@ -3,7 +3,7 @@
 import psycopg2
 import time
 
-connection = psycopg2.connect("dbname=calstreets user=postgres password=postgres")  
+connection = psycopg2.connect("dbname=calstreets user=postgres password=[your-password]")  
 cursor = connection.cursor()
 
 # Begin running script after importing libraries
