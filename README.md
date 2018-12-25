@@ -4,8 +4,6 @@ Mispelled street names are a major cause of geocoding errors. This is especially
 
 These scripts could be used as an exercize in using spatial SQL for geoprocessing. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>.
 
-Note: Neither the OpenStreetMap (OSM) nor Esri ZIP Code polygons should used for geocoding.
-
 You will need some data:
 <ul>
   <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south.</li>
