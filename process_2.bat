@@ -12,11 +12,11 @@ echo %time% Finished converting to an OSGEO4w shell
 
 echo %time% Loading osm_roads_norcal.csv into PostGIS
 
-call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=[your-password]" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_norcal.csv -overwrite --config PG_USE_COPY YES
+call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_norcal.csv -overwrite --config PG_USE_COPY YES
 
 echo %time% Loading osm_roads_socal.csv into PostGIS
 
-call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=[your-password]" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_socal.csv -overwrite --config PG_USE_COPY YES
+call C:\OSGeo4W64\bin\ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=postgres password=postgres" -s_srs EPSG:4326 -t_srs EPSG:4326 osm_roads_socal.csv -overwrite --config PG_USE_COPY YES
 
 echo %time% Running merge_join.py for geoprocessing in PostGIS
 
