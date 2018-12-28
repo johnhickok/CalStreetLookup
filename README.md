@@ -24,7 +24,7 @@ CREATE EXTENSION postgis;
  </ul>
 
 <pre>
-ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your login</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your login</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES -nlt MULTIPOLYGON
 </pre>
 
 <ul>
