@@ -1,9 +1,9 @@
-# merge_join is a Python script that runs geoprocessing tasks in PostGS
+# merge_join is a Python script that runs geoprocessing tasks in PostGIS
 
 import psycopg2
 import time
 
-connection = psycopg2.connect("dbname=calstreets user=postgres password=[your-password]")  
+connection = psycopg2.connect("dbname=calstreets user=postgres password=[your password]") 
 cursor = connection.cursor()
 
 # Begin running script after importing libraries
@@ -23,12 +23,12 @@ UNION
 cursor.execute(psql_merge_ca)
 cursor.execute("commit")
 
-print(time.strftime('%X') + ' Create table osm_ca with unique osm_id values')
+print(time.strftime('%X') + ' Create table osm_ca_roads with unique osm_id values')
 
 # Creates table osm_ca with unique records based on the OpenStreetMap ID
 psql_ca_unique = (
 """
-CREATE TABLE OSM_CA AS SELECT DISTINCT ON (OSM_CA_STAGING.OSM_ID) 
+CREATE TABLE OSM_CA_ROADS AS SELECT DISTINCT ON (OSM_CA_STAGING.OSM_ID) 
 OSM_CA_STAGING.OGC_FID,
 OSM_CA_STAGING.OSM_ID,
 OSM_CA_STAGING.CODE,
@@ -61,7 +61,7 @@ print(time.strftime('%X') + ' Create spatial index for California streets table'
 # Create spatial index
 psql_spatial_index = (
 """
-CREATE INDEX osm_ca_wkb_geometry_geom_idx ON osm_ca USING gist (wkb_geometry)
+CREATE INDEX osm_ca_roads_wkb_geometry_geom_idx ON osm_ca_roads USING gist (wkb_geometry)
 """
 )
 
@@ -80,7 +80,7 @@ zip.PO_NAME AS community,
 zip.ZIP_CODE AS zip,
 COUNT(roads.name) as st_count
 FROM (SELECT PO_NAME, ZIP_CODE, wkb_geometry FROM usa_zip_poly where STATE = 'CA') AS zip
-join (SELECT * FROM osm_ca WHERE osm_ca.name > '') as roads
+join (SELECT * FROM osm_ca_roads WHERE osm_ca_roads.name > '') as roads
 ON ST_intersects(zip.wkb_geometry, roads.wkb_geometry)
 GROUP BY roads.name, zip.ZIP_CODE, zip.PO_NAME
 ORDER BY roads.name

@@ -6,12 +6,6 @@ thisfolder = os.getcwd()
 
 print(time.strftime('%X') + ' Begin running shp2csv.py')
 
-# shpfile=r'C:\Temp\test.shp' #sys.argv[1]
-# csvfile=r'C:\Temp\test.csv' #sys.argv[2]
-
-shpfile = 'norcal_gis_osm_roads_free_1.shp'
-csvfile = 'roads_wkt_norcal.csv'
-
 def convert_your_csv(files):
   #Open files
   shpfile = files[0]
@@ -43,14 +37,15 @@ def convert_your_csv(files):
   del csvwriter,lyr,ds
   csvfile.close()
 
+# List files to be converted, then feed them into the function
 norcal = ['norcal_gis_osm_roads_free_1.shp','roads_wkt_norcal.csv']
-socal = ['norcal_gis_osm_roads_free_1.shp','roads_wkt_socal.csv']
+socal = ['socal_gis_osm_roads_free_1.shp','roads_wkt_socal.csv']
 
-print(time.strftime('%X') + ' Converting norcal_gis_osm_roads_free_1.shp to roads_wkt_norcal.csv')
+print(time.strftime('%X') + ' Converting ' + norcal[0] + ' to ' + norcal[1])
 
 convert_your_csv(norcal)
 
-print(time.strftime('%X') + ' Converting socal_gis_osm_roads_free_1.shp to roads_wkt_socal.csv')
+print(time.strftime('%X') + ' Converting ' + socal[0] + ' to ' + socal[1])
 
 convert_your_csv(socal)
 

@@ -14,16 +14,18 @@ call C:\OSGeo4W64\bin\o4w_env.bat
 
 echo %time% Finished converting to an OSGEO4w shell
 
-echo %time% Converting norcal_gis_osm_roads_free_1.shp to roads_wkt_norcal.csv
+echo %time% Begin running shp2csv.py to convert shapefiles to CSV
 
-call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt_norcal.csv norcal_gis_osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
+python shp2csv.py
 
-:: SoCal: convert socal_gis_osm_roads_free_1.shp to roads_wkt_socal.csv
 
-echo %time% Converting socal_gis_osm_roads_free_1.shp to roads_wkt_socal.csv
+:: If you'd rather run ogr2ogr on the commad line, remark out the line above and unremark those lines below
+:: echo %time% Converting norcal_gis_osm_roads_free_1.shp to roads_wkt_norcal.csv
+:: call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt_norcal.csv norcal_gis_osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
+:: echo %time% Converting socal_gis_osm_roads_free_1.shp to roads_wkt_socal.csv
+:: call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt_socal.csv socal_gis_osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
+:: echo %time% End script. Run process_2.bat in a new window.
 
-call C:\OSGeo4W64\bin\ogr2ogr -f CSV roads_wkt_socal.csv socal_gis_osm_roads_free_1.shp -lco GEOMETRY=AS_WKT
 
-echo %time% End script. Run process_2.bat in a new window.
+echo %time% End converting shapefiles to CSV
 
-:: To remove non-utf8 chars from the above CSVs run convert_utf8.py (Python script) in a new window
