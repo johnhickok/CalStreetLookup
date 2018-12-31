@@ -2,7 +2,7 @@
 
 Mispelled street names are a major cause of geocoding errors. This is especially true if your addresses are acquired over a phone call. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities. This repository also includes scripts for creating a SQLite database for looking up street spellings by ZIP Code, city, or parts of street names.
 
-It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and PostGIS. It is also helpful if you have a working knowledge of GDAL/OGR, Python and Spatial SQL. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. For your convenience, please visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> page.
+It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and PostGIS. It is also helpful if you have some knowledge of GDAL/OGR, Python and Spatial SQL. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. For your convenience, please visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> page.
 
 You will need some data:
 <ul>
