@@ -36,7 +36,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 </pre>
 
 <p>
-More details are remarked in the Windows batch files and the scripts called. Please also visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki" target="_blank">wiki</a> for more info.
+More details are remarked in the Windows batch files and the scripts called. Please also visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> for more info.
 <ul>
   <li><b>process_1.bat</b> extracts CSVs from norcal and socal shapefiles.</li>
   <li><b>process_2.bat</b> uses Python and the <a href="http://initd.org/psycopg/docs/index.html">psycopg2</a> library to geoprocess your data in PostGIS.</li>
