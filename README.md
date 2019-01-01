@@ -1,9 +1,14 @@
 # CalStreetLookup
-
-Mispelled street names are a major cause of geocoding errors. This is especially true if your addresses are acquired over a phone call. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities. This repository also includes scripts for creating a SQLite database for looking up street spellings by ZIP Code, city, or parts of street names.
-
-It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and PostGIS. It is also helpful if you have some knowledge of GDAL/OGR, Python and Spatial SQL. If you need some training using PostGIS, start with the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. For your convenience, please visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> page.
-
+<p>
+Mispelled street names are a major cause of geocoding errors. This is especially true if your addresses are acquired over a phone call. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities.
+</p>
+<p>
+It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and PostGIS. It is also helpful if you have some knowledge of GDAL/OGR, Python and Spatial SQL. For your convenience, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes some details on how to set up PostGIS for running these scripts.
+</p>
+<p>
+If you're a little new to using PostGIS, consider visiting the workshops in the <a href="https://postgis.net/workshops/postgis-intro">official postgis documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. 
+</p>
+<p>
 You will need some data:
 <ul>
   <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south.</li>
@@ -43,3 +48,4 @@ More details are remarked in the Windows batch files and the scripts called. Ple
 </ul>  
 
 John Hickok, 2018-12-26
+</p>
