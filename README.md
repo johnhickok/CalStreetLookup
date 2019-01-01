@@ -3,7 +3,7 @@
 Mispelled street names are a major cause of geocoding errors. This is especially true if your addresses are acquired over a phone call. These tools create a list of street names in California with their corresponding ZIP Codes and postal cities.
 </p>
 <p>
-It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and <a href="https://postgis.net/">PostGIS</a>. It is also helpful if you have some knowledge of <a href="https://www.gdal.org/>GDAL</a> and <a href="https://www.python.org/">Python</a>. For your convenience, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes some details on how to set up PostGIS for running these scripts.
+It is assumed you already installed and are at least familiar with <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation) and <a href="https://postgis.net/">PostGIS</a>. It is also helpful if you have some knowledge of <a href="https://www.gdal.org/">GDAL</a> and <a href="https://www.python.org/">Python</a>. For your convenience, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes some details on how to set up PostGIS for running these scripts.
 </p>
 <p>
 If you're a little new to using PostGIS, consider visiting the workshops in the <a href="https://postgis.net/workshops/postgis-intro">official PostGIS documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. 
