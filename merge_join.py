@@ -22,7 +22,7 @@ for archive in zip_list:
   archive_open.close()
 
 # Connect to PostGIS
-connection = psycopg2.connect("dbname=calstreets user=postgres password=postgres") 
+connection = psycopg2.connect("dbname=calstreets user=[your user name] password=[your password]") 
 cursor = connection.cursor()
 
 # drop table osm_roads if it exists
