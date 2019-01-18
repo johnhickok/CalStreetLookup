@@ -3,7 +3,7 @@
 import zipfile, glob, os
 import time
 
-print(time.strftime('%X') + ' Begin running csv2postgres')
+print(time.strftime('%X') + ' Begin running csv2postgres.py')
 
 # Get a list of the zipped shapefiles from GeoFabrik
 zip_list = []
@@ -52,4 +52,4 @@ for file in roads_shp:
 
   os.system(ogrstring)
 
-print(time.strftime('%X') + ' End running csv2postgres')
+print(time.strftime('%X') + ' End running csv2postgres.py')
