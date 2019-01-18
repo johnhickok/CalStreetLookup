@@ -8,7 +8,7 @@ import webbrowser, sqlite3
 print """
 This program asks you for the ZIP Code, street name, and the city.
 You can enter all or part of any of these categories.
-Blank entries retun everything.
+Blank entries return everything.
 """
 user_zip = raw_input( "Enter Zip Code:  " )
 user_street = raw_input( "Enter Part of Street Name:  " )
@@ -41,11 +41,11 @@ streetlist_file.write("STREET, CITY, STATE + ZIP\n")
 
 # parse a query search string qsearch and iterate database output into streetlist.txt
 c = sqlite3.connect('streetz.db')
-qsrch = ("SELECT [st_name], [community], [zip], [st_count] FROM streetz WHERE zip like '%" + 
+qsrch = ("SELECT [st_name], [community], [state], [zip], [st_count] FROM streetz WHERE zip like '%" + 
 user_zip + "%' AND st_name like '%" + user_street + "%' AND community like '%" + user_city + 
 "%' ORDER BY [st_name], [zip]")
 for row in c.execute(qsrch):
-  streetlist_file.write(str(row[0]) + ", " + str(row[1]) + ", CA " + str(row[2]) + "\n")
+  streetlist_file.write(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + " " + str(row[3]) + "\n")
 
 streetlist_file.close()
 

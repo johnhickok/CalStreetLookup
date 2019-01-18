@@ -1,41 +1,24 @@
-# This Python 2.x script extracts road shapefiles from northern and southern 
-# California Open Street Map files downloaded from Geofabrik
+# extract_roads.py is a Python script that iterates through your GeoFabrik
+# zip archives in this folder, extracts just the shapefiles representing roads,
+# then renames the files for regions you downloaded.
 
-import os, zipfile, subprocess
+import zipfile, glob, os
 
-#Set the current working folder
-thisfolder = os.getcwd()
+# Get a list of the zipped shapefiles from GeoFabrik
 
-# Extract roads shapefile from norcal
-open_zip = zipfile.ZipFile("norcal-latest-free.shp.zip")
+zip_list = []
 
-file_list = zipfile.ZipFile.namelist(open_zip)
+for i in glob.glob('*.zip'):
+  if 'latest-free.shp' in i:
+    zip_list.append(i)
 
-road_list = []
-
-# select the items in the archive including 'roads' in the name
-for i in file_list:
-  if 'roads' in i:
-    road_list.append(i)
-
-for j in road_list:
-  open_zip.extract(j)
-  os.rename(j, 'norcal_' + j)
-
-
-# Extract roads shapefile from socal
-open_zip = zipfile.ZipFile("socal-latest-free.shp.zip")
-
-# get a list of all the files in the archive
-file_list = zipfile.ZipFile.namelist(open_zip)
-
-road_list = []
-
-# select the items including 'roads' in the name
-for i in file_list:
-  if 'roads' in i:
-    road_list.append(i)
-
-for j in road_list:
-  open_zip.extract(j)
-  os.rename(j, 'socal_' + j)
+# Extract roads shapefiles and rename according to regions
+for archive in zip_list:
+  region = archive.split('-')[0]
+  roads_shp = []
+  archive_open = zipfile.ZipFile(archive)
+  for file in zipfile.ZipFile.namelist(archive_open):
+    if 'roads' in file:
+      archive_open.extract(file)
+      os.rename(file, region + '_' + file)
+  archive_open.close()
