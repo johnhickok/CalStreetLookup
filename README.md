@@ -12,7 +12,7 @@ It is assumed you already installed and have a working knowledge of <a href="htt
   <li>USA ZIP Codes data are available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
 </ul>
 
-<b>Some steps to take are listed below:</b>
+<b>Some more needed steps are listed below:</b>
 <ul>
     <li><b>Create a geospatial database:</b> Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>, or you can visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a>. Examples used herein use a database named <b>calstreets</b>.
 <pre>
