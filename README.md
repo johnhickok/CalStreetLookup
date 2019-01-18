@@ -6,43 +6,32 @@ Mispelled street names are a major cause of geocoding errors. This is especially
 It is assumed you already installed and have a working knowledge of <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation), <a href="https://postgis.net/">PostGIS</a>, <a href="https://www.gdal.org/">GDAL</a>, and <a href="https://www.python.org/">Python</a>. For your convenience, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes some details on how to set up PostGIS for running these scripts.
 </p>
 <p>
-You will need some data:
+<b>You will need some data:</b>
 <ul>
   <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south. These scripts can work with other USA regional shapefile downloads from GeoFabrik.</li>
   <li>USA ZIP Codes data are available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
 </ul>
 
-Some steps to take are listed below.
+<b>Some steps to take are listed below:</b>
 <ul>
-    <li><b>Create a geospatial database:</b> Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>, or you can visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a>. Examples used herein use a database named <b>calstreets</b>.</li>
-</ul>
-
+    <li><b>Create a geospatial database:</b> Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>, or you can visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a>. Examples used herein use a database named <b>calstreets</b>.
 <pre>
 CREATE EXTENSION postgis;
-</pre>
-
-<ul>
-  <li><b>Load Esri's USA ZIP Code polygons into your database:</b> Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr. The <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.</li>
- </ul>
-
+</pre>  
+</li>
+<li><b>Load Esri's USA ZIP Code polygons into your database:</b> Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr. The <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
 <pre>
 ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your login</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES -nlt MULTIPOLYGON
-</pre>
-
-<ul>
-  <li>These Python scripts use the <a href="http://initd.org/psycopg/docs/index.html">psycopg2</a> library to access your Postgres database. If you prefer accessing your database using command line tools without a password prompt, edit the pgpass.conf file in your Windows Users directory. (See formatting below.) More information about this file is in the <a href="https://www.postgresql.org/docs/current/static/libpq-pgpass.html">postgres documentation.</a></li>
-</ul>
-
+</pre> 
+</li>
+<li><b>Install the Unidecode Python Library:</b> Open the OSGEO4W Shell and enter the text below. Again, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
 <pre>
-<b><i>hostname:port:database:username:password</i></b>
+python -m pip install Unidecode
 </pre>
-
-<p>
-More details are remarked in the Windows batch files and the scripts called. Please also visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> for more info.
-<ul>
-  <li><b>process_1.bat</b> extracts CSVs from norcal and socal shapefiles.</li>
-  <li><b>process_2.bat</b> uses Python and the <a href="http://initd.org/psycopg/docs/index.html">psycopg2</a> library to geoprocess your data in PostGIS.</li>
+</li> 
+<li><b>Make Some Edits:</b> When you create databases in or install Postgres, you will use passwords and database names or your choosing. You will need to edit your copies of <i>csv2postgres.py</i> and <i>merge_join.py</i> with your database names and passwords. In addition, the geospatial SQL in <i>merge_join.py</i> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions.
+</li>
 </ul>  
 
-John Hickok, 2018-12-26
+John Hickok, 2019-01-18
 </p>
