@@ -29,7 +29,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 python -m pip install Unidecode
 </pre>
 </li> 
-<li><b>Make Some Edits:</b> When you create databases in or install Postgres, you will use passwords and database names or your choosing. You will need to edit your copies of <i>csv2postgres.py</i> and <i>merge_join.py</i> with your database names and passwords. In addition, the geospatial SQL in <i>merge_join.py</i> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions.
+<li><b>Make Some Edits:</b> When you create databases in or install Postgres, you will use passwords and database names or your choosing. You will need to edit your copies of <b><i>csv2postgres.py</i></b> and <b><i>merge_join.py</i></b> with your database names and passwords. In addition, the geospatial SQL in <b><i>merge_join.py</i></b> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions.
 </li>
 </ul>  
 
