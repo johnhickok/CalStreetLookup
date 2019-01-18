@@ -6,18 +6,15 @@ Mispelled street names are a major cause of geocoding errors. This is especially
 It is assumed you already installed and have a working knowledge of <a href="https://qgis.org/en/site/">QGIS</a> (OSGeo4W installation), <a href="https://postgis.net/">PostGIS</a>, <a href="https://www.gdal.org/">GDAL</a>, and <a href="https://www.python.org/">Python</a>. For your convenience, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes some details on how to set up PostGIS for running these scripts.
 </p>
 <p>
-If you're a little new to using PostGIS, consider visiting the workshops in the <a href="https://postgis.net/workshops/postgis-intro">official PostGIS documentation</a>. Boundless no longer hosts free tutorials, but does offer a few <a href="https://learn.boundlessgeo.com/series/postgis">courses for a fee</a>. 
-</p>
-<p>
 You will need some data:
 <ul>
-  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south.</li>
+  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south. These scripts can work with other USA regional shapefile downloads from GeoFabrik.</li>
   <li>USA ZIP Codes data are available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
 </ul>
 
 Some steps to take are listed below.
 <ul>
-    <li>Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>. Examples used herein use a database named <b>calstreets</b>.</li>
+    <li><b>Create a geospatial database:</b> Using PGAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>, or you can visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a>. Examples used herein use a database named <b>calstreets</b>.</li>
 </ul>
 
 <pre>
@@ -25,7 +22,7 @@ CREATE EXTENSION postgis;
 </pre>
 
 <ul>
-  <li>Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr:</li>
+  <li><b>Load Esri's USA ZIP Code polygons into your database:</b> Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr. The <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.</li>
  </ul>
 
 <pre>
