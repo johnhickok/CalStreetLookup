@@ -33,7 +33,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 </pre>
 
 <ul>
-  <li>To access your postgress database from the command line without a password prompt, edit the pgpass.conf file in your Windows Users directory. (See formatting below.) More information about this file is in the <a href="https://www.postgresql.org/docs/current/static/libpq-pgpass.html">postgres documentation.</a></li>
+  <li>These Python scripts use the <a href="http://initd.org/psycopg/docs/index.html">psycopg2</a> library to access your Postgres database. If you prefer accessing your database using command line tools without a password prompt, edit the pgpass.conf file in your Windows Users directory. (See formatting below.) More information about this file is in the <a href="https://www.postgresql.org/docs/current/static/libpq-pgpass.html">postgres documentation.</a></li>
 </ul>
 
 <pre>
