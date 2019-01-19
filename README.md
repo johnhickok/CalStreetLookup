@@ -24,7 +24,7 @@ CREATE EXTENSION postgis;
 ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your user name</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES -nlt MULTIPOLYGON
 </pre> 
 </li>
-<li><b>Install the Unidecode Python Library:</b> Open the OSGEO4W Shell and enter the text below. Again, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
+<li><b>Install the Unidecode Python Library:</b> Open the OSGeo4W Shell and enter the text below. Again, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
 <pre>
 python -m pip install Unidecode
 </pre>
