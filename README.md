@@ -29,7 +29,7 @@ ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><
 python -m pip install Unidecode
 </pre>
 </li> 
-<li><b>Make Some Edits:</b> You will need to edit your copies of <b><i>csv2postgres.py</i></b> and <b><i>merge_join.py</i></b> with your database names and passwords. The geospatial SQL in <b><i>merge_join.py</i></b> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions. Also note that your flavor of the Open Source GIS Ecosystem may use different naming for geometry fields than those used in these scripts. You can easily check for these in pgAdmin.
+<li><b>Make Some Edits:</b> You will need to edit your copies of <b><i>csv2postgres.py</i></b> and <b><i>merge_join.py</i></b> with your database names and passwords. The geospatial SQL in <b><i>merge_join.py</i></b> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions. Also note that your flavor of the Open Source GIS Ecosystem may use different naming for geometry fields ("geom", "wkbgeometry", "shape", etc.) than those used in these scripts. You can easily check for these in pgAdmin.
 </li>
 </ul>  
 
