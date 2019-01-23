@@ -7,13 +7,13 @@ It is assumed you already installed and have a working knowledge of <a href="htt
 </p>
 <p>
 <b>You will need some data:</b>
-<ul>
+<ol>
   <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south. These scripts can work with other USA regional shapefile downloads from GeoFabrik.</li>
   <li>USA ZIP Codes data are available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
-</ul>
+</ol>
 
 <b>Some more needed steps are listed below:</b>
-<ul>
+<ol start="3">
     <li><b>Create a geospatial database:</b> Using pgAdmin, create a database in Postgres and make it spatially enabled. Boundless <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/createdb.html">provides a few tips</a>, or you can visit the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a>. Examples used herein use a database named <b>calstreets</b>.
 <pre>
 CREATE EXTENSION postgis;
@@ -31,7 +31,7 @@ python -m pip install Unidecode
 </li> 
 <li><b>Make Some Edits:</b> You will need to edit your copies of <b><i>csv2postgres.py</i></b> and <b><i>merge_join.py</i></b> with your database names and passwords. The geospatial SQL in <b><i>merge_join.py</i></b> narrows the USA ZIP Codes table to California to speed up your spatial join. Please update this expression if you are working with other regions. Also note that your flavor of the Open Source GIS Ecosystem may use different naming for geometry fields ("geom", "wkbgeometry", "shape", etc.). You can easily check for these in pgAdmin, and make changes to your geospatial SQL expressions where needed.
 </li>
-</ul>  
+</ol>  
 
 John Hickok, 2019-01-18
 </p>
