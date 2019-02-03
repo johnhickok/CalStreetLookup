@@ -8,7 +8,7 @@ It is assumed you already installed and have a working knowledge of <a href="htt
 <p>
 <b>You will need some data:</b>
 <ol>
-  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south. These scripts can work with other USA regional shapefile downloads from GeoFabrik.</li>
+  <li>OpenStreetMap (OSM) data is available from <a href="https://www.geofabrik.de/">Geofabrik</a>. Note our example uses California shapefile downloads, which Geofabrik split into north and south. These scripts can work with other USA regional shapefile downloads from GeoFabrik.</li>
   <li>USA ZIP Codes data are available from Esri (<a href="http://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">download here</a>).</li>
 </ol>
 
