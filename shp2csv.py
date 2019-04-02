@@ -1,11 +1,10 @@
 # shp2csv.py converts shapefiles to CSVs with geometry expressed as WKT values
 
-import ogr, csv, time, glob, zipfile
+import zipfile, glob, os, time
 
 print(time.strftime('%X') + ' Begin running shp2csv.py')
 
 # Get a list of the zipped shapefiles from GeoFabrik
-
 zip_list = []
 roads_shp = []
 
@@ -21,40 +20,16 @@ for archive in zip_list:
       roads_shp.append(region + '_' + file)
   archive_open.close()
 
-def convert_your_csv(shapefile_name):
-  #Open files
-  shpfile = shapefile_name
-  csvfile = shapefile_name.split('.')[0] + '.csv'
-  csvfile = open(csvfile,'w')
-  ds = ogr.Open(shpfile)
-  lyr = ds.GetLayer()
-  
-  #Get field names
-  dfn = lyr.GetLayerDefn()
-  nfields = dfn.GetFieldCount()
-  fields = []
-  for i in range(nfields):
-    fields.append(dfn.GetFieldDefn(i).GetName())
-  fields.append('WKT')
-  
-  # set up csv and add header
-  csvwriter = csv.DictWriter(csvfile, fieldnames=fields, lineterminator='\n')
-  csvwriter.writeheader()
-  
-  # Write attributes and wkt out to csv
-  for feat in lyr:
-    attributes = feat.items()
-    geom = feat.GetGeometryRef()
-    attributes['WKT'] = geom.ExportToWkt()
-    csvwriter.writerow(attributes)
-  
-  #clean up
-  del csvwriter,lyr,ds
-  csvfile.close()
-
-for file in roads_shp:
-  print(time.strftime('%X') + ' Converting ' + file + ' to csv')
-  convert_your_csv(file)
+# Create and run ogr2ogr expressions on the command line
+for filename in roads_shp:
+  file_prefix = filename.split('.')[0]
+  ogrstring = 'ogr2ogr -f CSV '
+  ogrstring += file_prefix
+  ogrstring += '.csv '
+  ogrstring += filename
+  ogrstring += ' -lco GEOMETRY=AS_WKT'
+  print (time.strftime('%X') + ' converting ' + filename + '...')
+  os.system(ogrstring)
 
 print(time.strftime('%X') + ' End running shp2csv.py')
 

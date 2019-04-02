@@ -1,7 +1,6 @@
 # csv2postgres.py loads geospatial CSVs into PostGIS
 
-import zipfile, glob, os
-import time
+import zipfile, glob, os, time
 
 print(time.strftime('%X') + ' Begin running csv2postgres.py')
 
@@ -21,7 +20,7 @@ for archive in zip_list:
       roads_shp.append(region + '_' + file)
   archive_open.close()
 
-# Build ogr2ogr strings to load into postgres
+# Build ogr2ogr strings to load geospatial CSVs into postgres
 introstring = 'ogr2ogr -f "PostgreSQL" PG:"'
 hostname = 'host=localhost '
 portname = 'port=5432 '
