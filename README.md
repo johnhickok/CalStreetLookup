@@ -21,7 +21,7 @@ CREATE EXTENSION postgis;
 </li>
 <li><b>Load Esri's USA ZIP Code polygons into your database:</b> Use the <a href="http://docs.qgis.org/2.18/en/docs/user_manual/plugins/plugins_db_manager.html">QGIS DB Manager</a> or the <a href="https://connect.boundlessgeo.com/docs/suite/4.8/dataadmin/pgGettingStarted/pgshapeloader.html">PostGIS Shapefile Import/Export Manager</a> to load the Esri ZIP Code polygons into your database. The sample text below is provided if you prefer to use ogr2ogr in the OSGeo4W Shell. The <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
 <pre>
-ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your user name</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES -nlt MULTIPOLYGON
+ogr2ogr -f "PostgreSQL" PG:"host=localhost port=5432 dbname=calstreets user=<i><b>your user name</b></i> password=<i><b>your password</b></i>" -s_srs EPSG:4326 -t_srs EPSG:4326 zip_poly.gdb -sql "SELECT ZIP_CODE, PO_NAME, STATE, shape as wkb_geometry FROM zip_poly AS USA_ZIP_POLY" -overwrite -progress --config PG_USE_COPY YES -nlt MULTIPOLYGON
 </pre> 
 </li>
 <li><b>Install the Unidecode Python Library:</b> Open the OSGeo4W Shell and enter the text below. Again, the <a href="https://github.com/johnhickok/CalStreetLookup/wiki">wiki</a> includes a few more details.
