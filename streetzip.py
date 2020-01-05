@@ -34,7 +34,7 @@ else:
 
 # Open streetlist.txt and add user search terms and field headers
 streetlist_file = open("streetlist.txt", "w")
-streetlist_file.write("Data per OpenStreetMap + Esri\n")
+streetlist_file.write("Data per OpenStreetMap!\n")
 streetlist_file.write("Your search: Street = '" + user_street_display + "', City = '" + 
 user_city_display + "', ZIP Code = '" + user_zip_display + "'\n\n")
 streetlist_file.write("STREET, CITY, STATE + ZIP\n")

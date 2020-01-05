@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# jhickok 2020-01-05
-# Small changes made to run on Python 3 in the OSGeo4W Shell
+# jhickok 2018-12-26
+# This code works well on Python 2.7
 
 import csv, os, zipfile, glob
 from unidecode import unidecode
@@ -27,9 +27,9 @@ for archive in zip_list:
 
 # function for replacing or removing non-UTF8 characters
 # (GDAL scripts need this.)
-def remove_non_ascii(text):
+def remove_non_ascii(text, id):
   try:
-    finalval = unidecode(text)
+    finalval = unidecode(unicode(text, encoding = "utf-8"))
   except UnicodeDecodeError:
     finalval = ''
     for i in text:
@@ -37,8 +37,8 @@ def remove_non_ascii(text):
         i.decode('utf-8')
         finalval += i
       except UnicodeError:
-        print ('Found a non-decodable character')
-  return finalval
+        print (id, text)
+  return finalval, id
 
 for file in roads_shp:
   in_csv_filename = file.split('.')[0] + '.csv'
@@ -49,10 +49,11 @@ for file in roads_shp:
   out_csv = open(out_csv_filename, 'w')
   out_csv.write('WKT,osm_id,code,fclass,name,ref,oneway,maxspeed,layer,bridge,tunnel\n')
 
-  with open(in_csv_filename, encoding="utf8") as csvfile:
+  with open(in_csv_filename, 'r') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=',', quotechar='"')
     for row in reader:
-      name = remove_non_ascii(row['name'])
+      input = remove_non_ascii(row['name'], str(row['osm_id']))
+      name = input[0]
       name = name.replace('"','')
       name = name.replace("'","")
       name = name.replace(',',' ')

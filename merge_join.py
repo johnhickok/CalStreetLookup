@@ -22,7 +22,7 @@ for archive in zip_list:
   archive_open.close()
 
 # Connect to PostGIS
-connection = psycopg2.connect("dbname=calstreets user=[your user name] password=[your password]") 
+connection = psycopg2.connect("dbname=calstreets user=postgres password=postgres") 
 cursor = connection.cursor()
 
 # drop table osm_roads if it exists
@@ -54,23 +54,56 @@ cursor.execute("commit")
 
 print(time.strftime('%X') + ' Create table osm_roads with unique osm_id values')
 
-# Creates table osm_ca with unique records based on the OpenStreetMap ID
+# Creates a table osm_ca with OSM_ID as a primary key
+psql_ca_unique_create = (
+"""
+CREATE TABLE PUBLIC.OSM_ROADS
+(
+  OSM_ID CHARACTER VARYING PRIMARY KEY,
+  CODE CHARACTER VARYING,
+  FCLASS CHARACTER VARYING,
+  NAME CHARACTER VARYING,
+  REF CHARACTER VARYING,
+  ONEWAY CHARACTER VARYING,
+  MAXSPEED CHARACTER VARYING,
+  LAYER CHARACTER VARYING,
+  BRIDGE CHARACTER VARYING,
+  TUNNEL CHARACTER VARYING,
+  WKB_GEOMETRY GEOMETRY(GEOMETRY,4326)
+)
+"""
+)
+cursor.execute(psql_ca_unique_create)
+cursor.execute("commit")
+
+# Append osm_ca with values from staging
 psql_ca_unique = (
 """
-CREATE TABLE OSM_ROADS AS SELECT DISTINCT ON (OSM_STAGING.OSM_ID) 
-OSM_STAGING.OGC_FID,
-OSM_STAGING.OSM_ID,
-OSM_STAGING.CODE,
-OSM_STAGING.FCLASS,
-OSM_STAGING.NAME,
-OSM_STAGING.REF,
-OSM_STAGING.ONEWAY,
-OSM_STAGING.MAXSPEED,
-OSM_STAGING.LAYER,
-OSM_STAGING.BRIDGE,
-OSM_STAGING.TUNNEL,
-OSM_STAGING.WKB_GEOMETRY
-FROM OSM_STAGING
+INSERT INTO PUBLIC.OSM_ROADS (
+OSM_ID, 
+CODE, 
+FCLASS, 
+NAME, 
+REF, 
+ONEWAY, 
+MAXSPEED, 
+LAYER, 
+BRIDGE, 
+TUNNEL, 
+WKB_GEOMETRY)
+SELECT DISTINCT ON (OSM_STAGING.OSM_ID)
+OSM_ID, 
+CODE, 
+FCLASS, 
+NAME, 
+REF, 
+ONEWAY, 
+MAXSPEED, 
+LAYER, 
+BRIDGE, 
+TUNNEL, 
+WKB_GEOMETRY
+FROM OSM_STAGING;
 """
 )
 cursor.execute(psql_ca_unique)
@@ -94,32 +127,32 @@ print(time.strftime('%X') + ' Create spatial index for osm_roads')
 # Create spatial index
 psql_spatial_index = (
 """
-CREATE INDEX osm_roads_wkb_geometry_geom_idx ON osm_roads USING gist (wkb_geometry)
+CREATE INDEX OSM_ROADS_WKB_GEOMETRY_GEOM_IDX ON OSM_ROADS USING GIST (WKB_GEOMETRY)
 """
 )
 
 cursor.execute(psql_spatial_index)
 cursor.execute("commit")
 
-print(time.strftime('%X') + ' Spatially join ZIP Code polygons with osm_roads')
+print(time.strftime('%X') + ' Spatially joining ZIP Code polygons with osm_roads')
 
 # Spatially join ZIP Code polygons with OSM streets
 # You will want to query the zip code polygons for the region you want to speed this query
 psql_extract = (
 """
-SELECT * from
+SELECT * FROM
 (SELECT
-roads.name AS st_name,
-zip.PO_NAME AS community,
-zip.STATE,
-zip.ZIP_CODE AS zip,
-COUNT(roads.name) as st_count
-FROM (SELECT PO_NAME, STATE, ZIP_CODE, wkb_geometry FROM usa_zip_poly where STATE = 'CA') AS zip
-JOIN (SELECT * FROM osm_roads WHERE osm_roads.name > '') as roads
-ON ST_intersects(zip.wkb_geometry, roads.wkb_geometry)
-GROUP BY roads.name, zip.ZIP_CODE, zip.PO_NAME, zip.STATE
-ORDER BY roads.name) as geo_derive
-WHERE geo_derive.st_name >= '0'
+ROADS.NAME AS ST_NAME,
+ZIP.PO_NAME AS COMMUNITY,
+ZIP.STATE,
+ZIP.ZIP_CODE AS ZIP,
+COUNT(ROADS.NAME) AS ST_COUNT
+FROM (SELECT PO_NAME, STATE, ZIP_CODE, WKB_GEOMETRY FROM USA_ZIP_POLY WHERE STATE = 'CA') AS ZIP
+JOIN (SELECT * FROM OSM_ROADS WHERE OSM_ROADS.NAME > '') AS ROADS
+ON ST_INTERSECTS(ZIP.WKB_GEOMETRY, ROADS.WKB_GEOMETRY)
+GROUP BY ROADS.NAME, ZIP.ZIP_CODE, ZIP.PO_NAME, ZIP.STATE
+ORDER BY ROADS.NAME) AS GEO_DERIVE
+WHERE GEO_DERIVE.ST_NAME >= '0'
 """
 )
 

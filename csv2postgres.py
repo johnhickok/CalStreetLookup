@@ -1,6 +1,14 @@
 # csv2postgres.py loads geospatial CSVs into PostGIS
 
-import zipfile, glob, os, time
+# Edit the lines below with your PostGres credentials:
+hostname = 'localhost'
+portname = '5432'
+database_name = 'calstreets'
+username = 'postgres'
+pg_password = 'postgres'
+
+import zipfile, glob, os
+import time
 
 print(time.strftime('%X') + ' Begin running csv2postgres.py')
 
@@ -20,13 +28,13 @@ for archive in zip_list:
       roads_shp.append(region + '_' + file)
   archive_open.close()
 
-# Build ogr2ogr strings to load geospatial CSVs into postgres
+# Build ogr2ogr strings to load into postgres
 introstring = 'ogr2ogr -f "PostgreSQL" PG:"'
-hostname = 'host=localhost '
-portname = 'port=5432 '
-dbname = ' dbname=calstreets '
-username = 'user=[your user name] '
-passwordname = 'password=[your password]" '
+hostname = 'host=' + hostname + ' '
+portname = 'port=' + portname + ' '
+database_name = ' dbname=' + database_name + ' '
+username = 'user=' + username + ' '
+pg_password = 'password=' + pg_password + '" '
 projections = '-s_srs EPSG:4326 -t_srs EPSG:4326 '
 endstring = '-overwrite --config PG_USE_COPY YES '
 sqlstring = '-sql "select osm_id,code,fclass,name,ref,oneway,maxspeed,layer,bridge,tunnel from '
@@ -39,9 +47,9 @@ for file in roads_shp:
   ogrstring += introstring
   ogrstring += hostname
   ogrstring += portname
-  ogrstring += dbname
+  ogrstring += database_name
   ogrstring += username
-  ogrstring += passwordname
+  ogrstring += pg_password
   ogrstring += projections
   ogrstring += utf8_csf_filename + ' '
   ogrstring += sqlstring
