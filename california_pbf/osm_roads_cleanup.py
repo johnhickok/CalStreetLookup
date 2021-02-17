@@ -3,7 +3,7 @@ import psycopg2
 
 print("connecting to postgreSQL database")
 # Connect to PostGIS
-conn = psycopg2.connect("dbname='cal_streets' user='postgres' host='localhost' password='postgres'") 
+conn = psycopg2.connect("dbname='[your database name]' user='[your user name]' host='localhost' password='[your password]'") 
 cur = conn.cursor()
 
 print("extracting reference values from osm tags")
