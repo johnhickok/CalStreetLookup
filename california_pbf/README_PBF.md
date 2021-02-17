@@ -1,4 +1,4 @@
-Loading OpenStreetMap streets (*.pbf) into PostgreSQL
+<h>Loading OpenStreetMap streets (*.pbf) into PostgreSQL</h>
 
 Note these steps are for streets covering California
 
