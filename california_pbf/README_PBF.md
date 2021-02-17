@@ -24,7 +24,7 @@ py3_env
 python osm_roads_cleanup.py
 </pre>
 
-5. Run the Python script below to spatially join OSM roads with <href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri. Script extracts data to streetz.csv.
+5. Run the Python script below to spatially join OSM roads with <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri. Script extracts data to streetz.csv.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
