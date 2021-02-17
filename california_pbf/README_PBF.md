@@ -9,7 +9,7 @@ in which you want to run these scripts.
 2. Open the OSGeo4W Shell, and navigate to the folder you just copied your 
 pbf file into, then copy/paste the following:
 <pre>
-ogr2ogr -f PostgreSQL PG:"host=localhost user=postgres password=postgres dbname=cal_streets" california-latest.osm.pbf -sql "select osm_id, name, highway, z_order, other_tags from lines where highway is not null" -nln osmr_temp -lco GEOMETRY_NAME=geom
+ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your password] dbname=[your database name]" california-latest.osm.pbf -sql "select osm_id, name, highway, z_order, other_tags from lines where highway is not null" -nln osmr_temp -lco GEOMETRY_NAME=geom
 </pre>
 
 This will create a temporary table (osmr_temp) with most of what you need.
