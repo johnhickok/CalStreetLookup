@@ -3,7 +3,7 @@ import psycopg2
 
 print("Connect to postgreSQL")
 # Connect to PostGIS
-conn = psycopg2.connect("dbname='cal_streets' user='postgres' host='localhost' password='postgres'") 
+conn = psycopg2.connect("dbname=<your db name> user=<your user> host=<your host> password=<your password>") 
 cur = conn.cursor()
 
 # Spatially join ZIP Code polygons with OSM streets
