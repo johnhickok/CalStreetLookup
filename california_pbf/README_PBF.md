@@ -31,7 +31,7 @@ python osm_zipcodes_to_csv.py
 
 6. Run the Python script below to create sqlite database streetz.db, import streetz.csv and create an index.
 <pre>
-python make_sqlite_db.py
+python csv2sqlite.py
 </pre>
 
 7. Finally, you can run streetzip.py (Python 3) to query your sqlite database.
