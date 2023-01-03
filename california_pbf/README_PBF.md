@@ -1,13 +1,11 @@
 <b>Loading OpenStreetMap streets (*.pbf) into PostgreSQL</b>
 
-Note these steps are for streets covering California
+Note these steps are for streets covering California. begin with downloading some data.
 
 1. Visit the <a href="https://download.geofabrik.de/north-america/us/california.html">Geofabrik Download Server</a> for California and download 
-california-latest.osm.pbf. Move this large file into the same folder 
-in which you want to run these scripts.
+<i>california-latest.osm.pbf</i>. Move this large file into the same folder in which you want to run these scripts.
 
-2. Open the OSGeo4W Shell, and navigate to the folder you just copied your 
-pbf file into, then copy/paste the following:
+2. Copy/paste the following ogr2ogr expression into a text editor and replace with your PostgreSQL user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your ogr2ogr expression into the shell.
 <pre>
 ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your password] dbname=[your database name]" california-latest.osm.pbf -sql "select osm_id, name, highway, z_order, other_tags from lines where highway is not null" -nln osmr_temp -lco GEOMETRY_NAME=geom
 </pre>
@@ -24,7 +22,9 @@ py3_env
 python osm_roads_cleanup.py
 </pre>
 
-5. Run the Python script below to spatially join OSM roads with <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri. Script extracts data to streetz.csv.
+5. Download <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri, and upload this file geodatabase into the same database as your <i>osm_roads</i> table. Name this new table <i>usa_zip_poly</i>.
+
+6. Run the Python script below to spatially join your <i>osm_roads</i> and <i>usa_zip_poly</i> tables. The script extracts data to streetz.csv.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
