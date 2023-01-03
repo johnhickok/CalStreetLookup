@@ -34,4 +34,4 @@ python osm_zipcodes_to_csv.py
 python csv2sqlite.py
 </pre>
 
-7. Finally, you can run streetzip.py (Python 3) to query your sqlite database.
+7. Finally, you can run street_lookup.py (Python 3) to query your sqlite database.
