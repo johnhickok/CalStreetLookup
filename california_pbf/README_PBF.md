@@ -17,19 +17,19 @@ This will create a temporary table (osmr_temp) with most of what you need.
 py3_env
 </pre>
 
-4. In the OSGeo4W Shell, run the Python script below. This searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways.
+4. In the OSGeo4W Shell, run the Python script below. This searches the <i>other_tags</i> field for freeway references, then populates a field <i>ref</i> which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways.
 <pre>
 python osm_roads_cleanup.py
 </pre>
 
-5. Download <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri, and upload this file geodatabase into the same database as your <i>osm_roads</i> table. Name this new table <i>usa_zip_poly</i>.
+5. Download <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri, and use QGIS to upload this file geodatabase into the same database as your <i>osm_roads</i> table. Name this new table <i>usa_zip_poly</i>.
 
-6. Run the Python script below to spatially join your <i>osm_roads</i> and <i>usa_zip_poly</i> tables. The script extracts data to streetz.csv.
+6. In the OSGeo4W Shell, run the Python script below to spatially join your <i>osm_roads</i> and <i>usa_zip_poly</i> tables. The script extracts data to the file streetz.csv.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
 
-6. Run the Python script below to create sqlite database streetz.db, import streetz.csv and create an index.
+6. In the OSGeo4W Shell, run the Python script below to create sqlite database streetz.db, import streetz.csv and create an index.
 <pre>
 python csv2sqlite.py
 </pre>
