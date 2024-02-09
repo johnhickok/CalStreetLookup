@@ -6,7 +6,7 @@ Begin with downloading some data.
 
 1. Visit the <a href="https://download.geofabrik.de/north-america/us/california.html">Geofabrik Download Server</a> for California and download a file california-latest.osm.pbf. Move this large file into the same folder in which you want to run these scripts.
 
-2. Copy/paste the following ogr2ogr expression into a text editor and replace your PostgreSQL user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your personalized ogr2ogr expression from your text editor into the shell.
+2. Copy/paste the following ogr2ogr expression into a text editor and replace your PostgreSQL host, user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your personalized ogr2ogr expression from your text editor into the shell.
 <pre>
 ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your password] dbname=[your database name]" california-latest.osm.pbf -sql "select osm_id, name, highway, z_order, other_tags from lines where highway is not null" -nln osmr_temp -lco GEOMETRY_NAME=geom
 </pre>
@@ -30,6 +30,6 @@ python osm_zipcodes_to_csv.py
 python csv2sqlite.py
 </pre>
 
-7. Finally, you can run street_lookup.py (Python 3) to query your local SQLITE database.
+7. Finally, you can run street_lookup.py to query your local SQLITE database.
 
 All sample code in this repository is provided as is without warranty of any kind, either express or implied, including any implied warranties of fitness for a particular purpose, merchantability, or non-infringement.
