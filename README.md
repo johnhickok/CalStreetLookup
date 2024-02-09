@@ -20,7 +20,7 @@ python osm_roads_cleanup.py
 
 4. Download <a href="https://www.arcgis.com/home/item.html?id=91379236cdca4fd88f3682283f63953e#overview">United States ZIP Code Boundaries</a> from Esri. In the past, Esri made this available as a public download. Today, Esri places this layer under its Living Atlas umbrella. Use desktop GIS software to download a local copy of this GIS data (filtered for California) and upload this layer as a table into the same database as your osm_roads table. Name this new table usa_zip_poly.
 
-5. Like you did in a previous step, edit the Python script below before running it in the OSGeo4W Shell with your host, user name, database name, and password. Running this script spatially join your osm_roads and usa_zip_poly tables. The script also extracts data to the file streetz.csv, which can be used for uploading into other databases.
+5. Like you did in a previous step, edit the Python script below before running it in the OSGeo4W Shell with your host, user name, database name, and password. Running this script spatially joins your osm_roads and usa_zip_poly tables. The script also extracts data into a file streetz.csv, which can be used for uploading into other databases.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
