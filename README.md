@@ -1,6 +1,6 @@
 <b>Using PostGIS to Create a Street Name Lookup Table</b>
 
-Mispelled street names are a major cause for geocoding errors. This script creates an up-to-date table you can use for looking up all the streets in a given ZIP Code, listed alphabetically. We can thank the contributors of <a href="https://wiki.openstreetmap.org">Open Street Map</a> and <a href="https://www.esri.com">Esri</a> for the data we're using. Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS, GDAL, Python, PostgreSQL, and PostGIS.
+Mispelled street names are a major cause for geocoding errors. This script creates an up-to-date table you can use for looking up all the streets in a given ZIP Code, listed alphabetically. We can thank the contributors of <a href="https://wiki.openstreetmap.org">Open Street Map</a> and <a href="https://www.esri.com">Esri</a> for the data we're using. Let's not forget to thank <a href="https://www.geofabrik.de">Geofabrik</a> for making it easy to download Open Street Map data! Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS, GDAL, Python, PostgreSQL, and PostGIS.
 
 Begin with downloading some data.
 
