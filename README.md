@@ -1,11 +1,10 @@
 <b>Loading OpenStreetMap streets (*.pbf) into PostgreSQL</b>
 
-Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS/GDAL, Python, and PostgreSQL/PostGIS.
+Mispelled street names are a major cause for geocoding errors. This script creates an up-to-date table you can use for looking up all the streets in a given ZIP Code, listed alphabetically. We can thank the contributors of <a href="https://wiki.openstreetmap.org">OpenS Street Map</a> and <a href="https://www.esri.com">Esri</a> for the data we're using. Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS, GDAL, Python, and PostgreSQL/PostGIS.
 
 Begin with downloading some data.
 
-1. Visit the <a href="https://download.geofabrik.de/north-america/us/california.html">Geofabrik Download Server</a> for California and download 
-<i>california-latest.osm.pbf</i>. Move this large file into the same folder in which you want to run these scripts.
+1. Visit the <a href="https://download.geofabrik.de/north-america/us/california.html">Geofabrik Download Server</a> for California and download a file california-latest.osm.pbf. Move this large file into the same folder in which you want to run these scripts.
 
 2. Copy/paste the following ogr2ogr expression into a text editor and replace your PostgreSQL user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your personalized ogr2ogr expression from your text editor into the shell.
 <pre>
@@ -14,21 +13,21 @@ ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your pa
 
 This will create a temporary table (osmr_temp) in your PostgreSQL database with most of what you need.
 
-3. In the OSGeo4W Shell, run the Python script below. This searches the <i>other_tags</i> field for freeway references, then populates a field <i>ref</i> which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
+3. In the OSGeo4W Shell, run the Python script below. This searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
 <pre>
 python osm_roads_cleanup.py
 </pre>
 
-4. Download <a href="https://www.arcgis.com/home/item.html?id=91379236cdca4fd88f3682283f63953e#overview">United States ZIP Code Boundaries</a> from Esri. In the past, Esri made this available as a public download. Today, Esri places this layer under the Living Atlas umbrella. Use desktop GIS software to download a local copy of this GIS data (filtered for California) and upload this layer as a table into the same database as your <i>osm_roads</i> table. Name this new table usa_zip_poly. If you can create an ogr2ogr expression for this step, kudos! It can be done.
+4. Download <a href="https://www.arcgis.com/home/item.html?id=91379236cdca4fd88f3682283f63953e#overview">United States ZIP Code Boundaries</a> from Esri. In the past, Esri made this available as a public download. Today, Esri places this layer under the Living Atlas umbrella. Use desktop GIS software to download a local copy of this GIS data (filtered for California) and upload this layer as a table into the same database as your osm_roads table. Name this new table usa_zip_poly. If you can create an ogr2ogr expression for this step, kudos! It can be done.
 
-5. In the OSGeo4W Shell, run the Python script below to spatially join your <i>osm_roads</i> and <i>usa_zip_poly</i> tables. The script extracts data to the file streetz.csv, which can be used for uploading into other databases.
+5. In the OSGeo4W Shell, run the Python script below to spatially join your osm_roads and usa_zip_poly tables. The script extracts data to the file streetz.csv, which can be used for uploading into other databases.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
 
-6. If you wanto to use a local SQLITE database for quick and simple street name lookups. open the OSGeo4W Shell, run the Python script below. This script will create a sqlite database streetz.db, import streetz.csv, and create an index.
+6. If you wanto to use a local SQLITE database for quick and simple street name lookups, open the OSGeo4W Shell and run the Python script below. This script will create a local database streetz.db, import streetz.csv as a table, and create an index.
 <pre>
 python csv2sqlite.py
 </pre>
 
-7. Finally, you can run street_lookup.py (Python 3) to query your sqlite database.
+7. Finally, you can run street_lookup.py (Python 3) to query your local SQLITE database.
