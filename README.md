@@ -13,14 +13,14 @@ ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your pa
 
 This will create a temporary table (osmr_temp) in your PostgreSQL database with most of what you need.
 
-3. In the OSGeo4W Shell, run the Python script below. This script searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
+3. Before running the script below in the OSGeo4W Shell, you will need to edit your copy of this Python script with your PostgreSQL host, user name, database name, and password. This script searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
 <pre>
 python osm_roads_cleanup.py
 </pre>
 
 4. Download <a href="https://www.arcgis.com/home/item.html?id=91379236cdca4fd88f3682283f63953e#overview">United States ZIP Code Boundaries</a> from Esri. In the past, Esri made this available as a public download. Today, Esri places this layer under its Living Atlas umbrella. Use desktop GIS software to download a local copy of this GIS data (filtered for California) and upload this layer as a table into the same database as your osm_roads table. Name this new table usa_zip_poly.
 
-5. In the OSGeo4W Shell, run the Python script below to spatially join your osm_roads and usa_zip_poly tables. The script also extracts data to the file streetz.csv, which can be used for uploading into other databases.
+5. Like you did in a previous step, edit the Python script below before running it in the OSGeo4W Shell with your host, user name, database name, and password. Running this script spatially join your osm_roads and usa_zip_poly tables. The script also extracts data to the file streetz.csv, which can be used for uploading into other databases.
 <pre>
 python osm_zipcodes_to_csv.py
 </pre>
