@@ -1,6 +1,6 @@
-<b>Loading OpenStreetMap streets (*.pbf) into PostgreSQL</b>
+<b>Using PostGIS to Create a Street Name Lookup Table</b>
 
-Mispelled street names are a major cause for geocoding errors. This script creates an up-to-date table you can use for looking up all the streets in a given ZIP Code, listed alphabetically. We can thank the contributors of <a href="https://wiki.openstreetmap.org">OpenS Street Map</a> and <a href="https://www.esri.com">Esri</a> for the data we're using. Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS, GDAL, Python, and PostgreSQL/PostGIS.
+Mispelled street names are a major cause for geocoding errors. This script creates an up-to-date table you can use for looking up all the streets in a given ZIP Code, listed alphabetically. We can thank the contributors of <a href="https://wiki.openstreetmap.org">Open Street Map</a> and <a href="https://www.esri.com">Esri</a> for the data we're using. Note these steps are for streets covering California. It is assumed the user of these scripts is familiar with QGIS, GDAL, Python, PostgreSQL, and PostGIS.
 
 Begin with downloading some data.
 
@@ -13,7 +13,7 @@ ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your pa
 
 This will create a temporary table (osmr_temp) in your PostgreSQL database with most of what you need.
 
-3. In the OSGeo4W Shell, run the Python script below. This searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
+3. In the OSGeo4W Shell, run the Python script below. This script searches the other_tags field for freeway references, then populates a field ref which contains freeway numbers. This field is valuable for identifying state, federal, and interstate highways. The osmr_temp table is replaced with a new table osm_roads which can be used for spatial joining in the steps below or for general mapping.
 <pre>
 python osm_roads_cleanup.py
 </pre>
