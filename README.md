@@ -31,5 +31,8 @@ python csv2sqlite.py
 </pre>
 
 7. Finally, you can run street_lookup.py to query your local SQLITE database.
+<pre>
+python street_lookup.py
+</pre>
 
 All sample code in this repository is provided as is without warranty of any kind, either express or implied, including any implied warranties of fitness for a particular purpose, merchantability, or non-infringement.
