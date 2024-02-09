@@ -7,7 +7,7 @@ Begin with downloading some data.
 1. Visit the <a href="https://download.geofabrik.de/north-america/us/california.html">Geofabrik Download Server</a> for California and download 
 <i>california-latest.osm.pbf</i>. Move this large file into the same folder in which you want to run these scripts.
 
-2. Copy/paste the following ogr2ogr expression into a text editor and replace with your PostgreSQL user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your personalized ogr2ogr expression from your text editor into the shell.
+2. Copy/paste the following ogr2ogr expression into a text editor and replace your PostgreSQL user name, database name, and password. Open the OSGeo4W Shell, navigate to the folder you copied your pbf file into, then copy/paste your personalized ogr2ogr expression from your text editor into the shell.
 <pre>
 ogr2ogr -f PostgreSQL PG:"host=localhost user=[your user name] password=[your password] dbname=[your database name]" california-latest.osm.pbf -sql "select osm_id, name, highway, z_order, other_tags from lines where highway is not null" -nln osmr_temp -lco GEOMETRY_NAME=geom
 </pre>
@@ -19,7 +19,7 @@ This will create a temporary table (osmr_temp) in your PostgreSQL database with 
 python osm_roads_cleanup.py
 </pre>
 
-4. Download <a href="https://www.arcgis.com/home/item.html?id=8d2012a2016e484dafaac0451f9aea24">USA ZIP Code polygons</a> from Esri, and use QGIS to upload this file geodatabase into the same database as your <i>osm_roads</i> table. Name this new table usa_zip_poly.
+4. Download <a href="https://www.arcgis.com/home/item.html?id=91379236cdca4fd88f3682283f63953e#overview">United States ZIP Code Boundaries</a> from Esri. In the past, Esri made this available as a public download. Today, Esri places this layer under the Living Atlas umbrella. Use desktop GIS software to download a local copy of this GIS data (filtered for California) and upload this layer as a table into the same database as your <i>osm_roads</i> table. Name this new table usa_zip_poly. If you can create an ogr2ogr expression for this step, kudos! It can be done.
 
 5. In the OSGeo4W Shell, run the Python script below to spatially join your <i>osm_roads</i> and <i>usa_zip_poly</i> tables. The script extracts data to the file streetz.csv, which can be used for uploading into other databases.
 <pre>
