@@ -47,7 +47,7 @@ The following Python script can be run in the OSGEO4W Shell, taking user input a
 python street_lookup.py
 </pre>
 
-The script below is the same as above, except using PostGIS geospatial queries. Comparing these two scripts can help decide if the computational expense will work for you.
+The script below is the same as above, except using PostGIS geospatial queries direcly from your osm_roads and ca_zip_poly tables with their geometries. Comparing these two scripts can help decide if the computational expense will work for you.
 
 <pre>
 python street_lookup_geo.py
