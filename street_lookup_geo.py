@@ -1,6 +1,6 @@
-# street_lookup.py queries a PostgreSQL database table cal_street_lookup
-# and appends a list of street names, zipcodes, and PO names as city names
-# into a text file streetlist.txt.
+# street_lookup_geo.py queries a PostgreSQL database and appends a list of zipcodes
+# and street names into streetlist.txt. Geospatial data used is OpenStreetMap Roads
+# and Esri USA ZIP Code polygons.
 # John Hickok 2025
 
 import webbrowser, psycopg2, os
@@ -9,15 +9,15 @@ import webbrowser, psycopg2, os
 os.system('cls')
 
 # set up a cursor for postgres database
-conn_pg = psycopg2.connect(
+conn = psycopg2.connect(
   host='localhost',
   dbname='<your database name>', 
   user='<your database user name>', 
   password='<your database password>'
   )
-cursor_pg = conn_pg.cursor()
+cur = conn.cursor()
 
-# ask for user input in the CMD Console
+# Ask for user input in the CMD Console
 print ("""
 This program asks you for the ZIP Code, (no street name, city).
 You can enter all or part of any of these categories.
@@ -54,39 +54,37 @@ streetlist_file.write("Your search: Street = '" + user_street_display + "', City
 user_city_display + "', ZIP Code = '" + user_zip_display + "'\n\n")
 streetlist_file.write("STREET, CITY, STATE + ZIP\n")
 
-# build a search string based on user input
+# parse a query search string qsearch and iterate database output into streetlist.txt
 
 qsrch = ("""
-select
-street,
-city,
-zip
-from cal_street_lookup
+select distinct
+o.name,
+z.po_name as city,
+'CA' as st,
+z.zip_code
+from (select * from usa_zip_poly where state like 'CA') z
+join osm_roads o
+on st_intersects(z.geom, o.geom)
+where z.zip_code like '%user_zip%'
+and o.name ilike '%user_street%'
+and z.po_name ilike '%user_city%'
+order by o.name, z.po_name
+limit 10000
 """
 )
 
-search_zip = "where zip like '%" + user_zip + "%'"
-search_street = "and street ilike '%" + user_street + "%'" 
-search_city = "and city ilike '%" + user_city + "%'" 
+qsrch = qsrch.replace('user_zip', user_zip)
+qsrch = qsrch.replace('user_street', user_street)
+qsrch = qsrch.replace('user_city', user_city)
 
-qsrch += search_zip
-qsrch += search_street
-qsrch += search_city
+cur.execute(qsrch)
 
-qsrch += "order by street, zip"
+for row in cur.fetchall():
+  streetlist_file.write(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + " " + str(row[3]) + "\n")
 
-# run your query
-cursor_pg.execute(qsrch)
-
-print('results...')
-
-# populate streetlist.txt with values from your query
-for row in cursor_pg.fetchall():
-  streetlist_file.write(str(row[0]) + ", " + str(row[1]) + ", " + str(row[2]) + "\n")
-
-conn_pg.close()
+conn.close()
 streetlist_file.close()
 
-# Display results in streetlist.txt
+# Display streetlist.txt
 webbrowser.open("streetlist.txt")
 
