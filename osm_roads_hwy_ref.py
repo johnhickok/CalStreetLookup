@@ -2,9 +2,16 @@
 import psycopg2
 
 print("connecting to postgreSQL database")
-# Connect to PostGIS
-conn = psycopg2.connect("dbname='<your database name>' user='<your user name>' host=<your host> password='<your password>'") 
+
+# set up a cursor for postgres database
+conn = psycopg2.connect(
+  host='localhost',
+  dbname='<your database name>', 
+  user='<your database user name>', 
+  password='<your database password>'
+  )
 cur = conn.cursor()
+
 
 print("extracting reference values from osm tags")
 # drop table hwy_ref if it exists, then create it

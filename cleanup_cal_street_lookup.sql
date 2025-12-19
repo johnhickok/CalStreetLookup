@@ -31,5 +31,5 @@ where street in
 ' A',
 ' North ')
 ;
-drop table geo_cal_street_lookup_temp
+drop table cal_street_lookup_temp
 ;
